@@ -1,0 +1,115 @@
+:root {
+   --theme-color: #7395AE;
+   --theme-dark-color: #557A95;
+   --primary-font-color: #5D5C61;
+   --link-font-color: white;
+}
+
+/* Base styles */
+body {
+   margin: 0;
+   font-family: Arial, sans-serif;
+ }
+ 
+ header {
+   background-color: #008080;
+   color: white;
+   text-align: center;
+   padding: 10px;
+ }
+ 
+ nav {
+   background-color: #ddd;
+   padding: 10px;
+ }
+ 
+ nav ul {
+   margin: 0;
+   padding: 0;
+   list-style: none;
+   display: flex;
+   justify-content: center;
+ }
+ 
+ nav li {
+   margin: 0 10px;
+   font-size: 1.2rem;
+   display: block;
+ }
+ 
+ nav li a {
+   color: #333;
+   text-decoration: none;
+ }
+ 
+ main {
+   max-width: 600px;
+   margin: 0 auto;
+   padding: 10px;
+ }
+ 
+ section {
+   margin-top: 20px;
+ }
+ 
+ h2 {
+   color: #008080;
+ }
+ 
+ .vacation-container {
+   display: flex;
+   flex-direction: column;
+ }
+ 
+ .vacation-container img {
+   max-width: 100%;
+   margin-bottom: 10px;
+ }
+ 
+ .vacation-container > div {
+   margin-left: 0;
+ }
+ 
+ .benefits-container {
+   margin: 20px;
+ }
+ 
+ .benefits-inner-container {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   margin-bottom: 10px;
+ }
+ 
+ .benefits-inner-container img {
+   margin-right: 10px;
+ }
+ 
+ /* Media queries */
+ @media screen and (min-width: 600px) {
+   .benefits-container {
+     flex-direction: row;
+   }
+ }
+ 
+ @media screen and (min-width: 700px) {
+   nav li {
+     display: inline;
+   }
+   header > h1 {
+     font-size: 3rem;
+   }
+ }
+ 
+ @media screen and (min-width: 800px) {
+   .vacation-container img {
+     width: 50vw;
+   }
+   .vacation-container {
+     flex-direction: row;
+   }
+   .vacation-container > div {
+     margin-left: 20px;
+   }
+ }
+ 
