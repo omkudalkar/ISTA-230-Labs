@@ -73,24 +73,16 @@ function checkForWinner() {
 
 function newGame() {
 	// TODO: Complete the function
-    clearTimeout(computerMoveTimeout);
-    computerMoveTimeout = 0;
-
-    // Clear the game board
-    const buttons = getGameBoardButtons();
-    for (let button of buttons) {
-        button.innerHTML = "";
-        button.classList.remove("x");
-        button.classList.remove("o");
-        button.disabled = false;
-    }
-
-    // Allow the player to take a turn
-    playerTurn = true;
-
-    // Set the turn information paragraph to "Your turn"
-    const turnInfo = document.getElementById("turnInfo");
-    turnInfo.innerHTML = "Your turn";
+	clearTimeout(computerMoveTimeout);
+	computerMoveTimeout = 0;
+	const buttons = getGameBoardButtons();
+	for (let button of buttons) {
+		button.innerHTML = "";
+		button.classList.remove("x", "o");
+		button.disabled = false;
+	}
+	playerTurn = true;
+	document.getElementById("turnInfo").innerHTML = "Your turn";
 }
 
 function boardButtonClicked(button) {
@@ -105,49 +97,37 @@ function boardButtonClicked(button) {
 
 function switchTurn() {
 	// TODO: Complete the function
-	checkForWinner();
-
-	if (movesLeft > 0) {
-	  if (playerTurn) {
-		setTimeout(() => {
-		  computerMoveTimeout = makeComputerMove();
-		}, 1000);
-	  } else {
-		clearTimeout(computerMoveTimeout);
-	  }
-  
-	  playerTurn = !playerTurn;
-  
-	  if (playerTurn) {
-		turnInfo.textContent = "Your turn";
-	  } else {
-		turnInfo.textContent = "Computer's turn";
-	  }
+	const result = checkForWinner();
+	if (result === gameStatus.MORE_MOVES_LEFT) {
+		playerTurn = !playerTurn;
+		if (!playerTurn) {
+			document.getElementById("turnInfo").innerHTML = "Computer's turn";
+			computerMoveTimeout = setTimeout(makeComputerMove, 1000);
+		} else {
+			document.getElementById("turnInfo").innerHTML = "Your turn";
+		}
 	} else {
-	  playerTurn = false;
-  
-	  if (winner === "X") {
-		turnInfo.textContent = "You win!";
-	  } else if (winner === "O") {
-		turnInfo.textContent = "Computer wins!";
-	  } else {
-		turnInfo.textContent = "Draw game";
-	  }
+		endGame(result);
 	}
 }
 
 function makeComputerMove() {
 	// TODO: Complete the function
-	// Get all unselected buttons
-	const unselectedButtons = document.querySelectorAll("button:not(.x):not(.o)");
-	// Choose a random button
-	const randomButton = unselectedButtons[Math.floor(Math.random() * unselectedButtons.length)];
+	// Get all available buttons
+	const availableButtons = document.querySelectorAll('button:not([disabled])');
+  
+	// Choose a random button from the available buttons
+	const randomButton = availableButtons[Math.floor(Math.random() * availableButtons.length)];
+	  
 	// Set the button's inner HTML to "O"
 	randomButton.innerHTML = "O";
+	  
 	// Add the "o" class to the button
 	randomButton.classList.add("o");
-	// Disable the button
+	  
+	// Set the button's disabled attribute to true
 	randomButton.disabled = true;
+	  
 	// Switch back to player's turn
 	switchTurn();
 }
